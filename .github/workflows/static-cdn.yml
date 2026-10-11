@@ -1,0 +1,43 @@
+# @vx/INFO: @vx/ci - trigger
+name: static-cdn | bnd
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [timeline, next, feat/*]
+    paths:
+      - '.github/workflows/static-cdn.yml'
+      - 'vx/handbooks/ci.md'
+      # - 'packages/**'
+      - 'apps-cdns/static-cdn/**'
+
+jobs:
+  run_if:
+    runs-on: ubuntu-latest
+    outputs:
+      all: ${{ steps.filter.outputs.all }}
+      deploy: ${{ steps.filter.outputs.deploy }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          base: ${{ github.ref }}
+          filters: |
+            all:
+              - '.github/workflows/static-cdn.yml'
+              - 'vx/handbooks/ci.md'
+            deploy:
+              - 'apps-cdns/static-cdn/**'
+              - 'packages/**'
+
+  deploy:
+    needs: run_if
+    permissions:
+      contents: write # Publish the deployment URLs as a commit comment.
+    if: ${{ needs.run_if.outputs.all == 'true' || needs.run_if.outputs.deploy == 'true' }}
+    name: static-cdn | ${{ github.ref_name }}
+    uses: vezham/vx-fe-deployer/.github/workflows/static-cdn.yml@timeline
+    secrets: inherit
+    with:
+      CALLER: ${{ github.ref_name }}
