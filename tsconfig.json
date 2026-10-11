@@ -25,6 +25,12 @@
     },
     {
       "path": "./packages/vx/react"
+    },
+    {
+      "path": "./apps-cdns/static-cdn-e2e"
+    },
+    {
+      "path": "./apps-cdns/static-cdn"
     }
   ],
   "compilerOptions": {

@@ -1,0 +1,10 @@
+{
+  "name": "static-cdn-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps-cdns/static-cdn-e2e/src",
+  "tags": ["category:internal", "e2e"],
+  "implicitDependencies": ["static-cdn"],
+  "// targets": "to see all targets run: nx show project static-cdn-e2e --web",
+  "targets": {}
+}

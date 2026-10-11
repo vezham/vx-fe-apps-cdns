@@ -1,0 +1,10 @@
+{
+  "name": "static-cdn",
+  "version": "26.0.0-alpha.1",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@vx/env": "workspace:*",
+    "@vx/start": "workspace:*"
+  }
+}

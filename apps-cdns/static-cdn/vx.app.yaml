@@ -1,0 +1,151 @@
+# yaml-language-server: $schema=../../vx/schemas/vx.app.json
+framework: vite
+core:
+  id: vezham-static-cdn
+  name: Vezham Static CDN
+  shortName: Static CDN
+  version: 26.0.0-alpha.1
+  description: Single app to manage your Vezham Static CDN
+  publisher:
+    name: Vezham Technologies Private Limited
+    url: https://vezham.com
+  url: https://static-cdn.vezham.app
+branding:
+  themeColor: '#000000'
+  backgroundColor: '#ffffff'
+pwa:
+  display: standalone
+  orientation: any
+  scope: .
+  startUrl: /
+  categories:
+    - productivity
+    - personalization
+    - utilities
+  icons:
+    path: icons/icon-{size}x{size}.png
+    sizes:
+      - 48
+      - 72
+      - 96
+      - 128
+      - 192
+      - 384
+      - 512
+      - 1024
+    type: image/png
+  shortcuts:
+    - name: Home
+      shortName: Home
+      url: /
+      icons:
+        - src: shortcuts/icon-home-192x192.png
+          sizes: 192x192
+          type: image/png
+  screenshots:
+    - src: screenshots/home-512x512.png
+      type: image/png
+      sizes: 512x512
+metadata:
+  title: Home | Vezham Static CDN
+  keywords:
+    - Vezham Static CDN
+  theme:
+    lightColor: white
+    darkColor: black
+    lightBackgroundColor: white
+    darkBackgroundColor: black
+  platforms:
+    apple:
+      mobileWebAppCapable: true
+      webAppCapable: true
+      touchIcon: icons/icon-512x512.png
+      startupImages:
+        path: splashscreens/{colorScheme}/splash-{device}-{width}x{height}@{pixelRatio}x.png
+        colorSchemes:
+          - light
+          - dark
+        sizes:
+          - device: iphone
+            width: 320
+            height: 568
+            pixelRatio: 2
+          - device: iphone
+            width: 375
+            height: 667
+            pixelRatio: 2
+          - device: iphone
+            width: 414
+            height: 736
+            pixelRatio: 3
+          - device: iphone
+            width: 360
+            height: 780
+            pixelRatio: 3
+          - device: iphone
+            width: 375
+            height: 812
+            pixelRatio: 3
+          - device: iphone
+            width: 390
+            height: 844
+            pixelRatio: 3
+          - device: iphone
+            width: 393
+            height: 852
+            pixelRatio: 3
+          - device: iphone
+            width: 402
+            height: 874
+            pixelRatio: 3
+          - device: iphone
+            width: 414
+            height: 896
+            pixelRatio: 2
+          - device: iphone
+            width: 414
+            height: 896
+            pixelRatio: 3
+          - device: iphone
+            width: 420
+            height: 912
+            pixelRatio: 3
+          - device: iphone
+            width: 428
+            height: 926
+            pixelRatio: 3
+          - device: iphone
+            width: 430
+            height: 932
+            pixelRatio: 3
+          - device: iphone
+            width: 440
+            height: 956
+            pixelRatio: 3
+          - device: ipad
+            width: 768
+            height: 1024
+            pixelRatio: 2
+          - device: ipad
+            width: 834
+            height: 1112
+            pixelRatio: 2
+          - device: ipad
+            width: 834
+            height: 1194
+            pixelRatio: 2
+          - device: ipad
+            width: 1024
+            height: 1366
+            pixelRatio: 2
+    microsoft:
+      startUrl: /
+  social:
+    openGraph:
+      type: website
+      image: /og/image.png
+    twitter:
+      creator: '@vezham'
+      site: '@vezham'
+      card: summary_large_image
+      image: /og/image.png

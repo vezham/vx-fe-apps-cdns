@@ -130,7 +130,7 @@ export const Home = ({ onPress }: Props) => {
 
       <Separator />
 
-      <div>Welcome to Playground!...</div>
+      <div>Welcome to Static CDN!...</div>
       <Posts />
     </>
   )
