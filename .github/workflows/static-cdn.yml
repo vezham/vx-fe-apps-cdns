@@ -35,6 +35,7 @@ jobs:
     needs: run_if
     permissions:
       contents: write # Publish the deployment URLs as a commit comment.
+      statuses: write # Record deployment history for the shared commit tracker.
     if: ${{ needs.run_if.outputs.all == 'true' || needs.run_if.outputs.deploy == 'true' }}
     name: static-cdn | ${{ github.ref_name }}
     uses: vezham/vx-fe-deployer/.github/workflows/static-cdn.yml@timeline
