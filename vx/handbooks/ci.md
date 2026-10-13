@@ -3,7 +3,7 @@
 ---
 
 - sync: ci
-- version: 2026-10-06-00:00
+- version: 2026-10-13-00:00
 - @vx/fe-kit: 26.0.0-alpha.1
 
 ## Code audits
