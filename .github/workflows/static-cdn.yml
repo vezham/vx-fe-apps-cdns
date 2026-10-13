@@ -29,7 +29,7 @@ jobs:
       deploy: ${{ steps.filter.outputs.deploy }}
     steps:
       - uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v2
+      - uses: dorny/paths-filter@v4
         id: filter
         with:
           base: ${{ github.ref }}
@@ -48,7 +48,8 @@ jobs:
       statuses: write # Record deployment history for the shared commit tracker.
     if: ${{ needs.run_if.outputs.all == 'true' || needs.run_if.outputs.deploy == 'true' }}
     name: static-cdn | ${{ github.ref_name }}
-    uses: vezham/vx-fe-deployer/.github/workflows/static-cdn.yml@timeline
+    uses: vezham/vx-fe-deployer/.github/workflows/web-app.yml@timeline
     secrets: inherit
     with:
+      APP: static-cdn
       CALLER: ${{ github.ref_name }}
