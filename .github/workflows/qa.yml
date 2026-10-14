@@ -49,11 +49,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.BRANCH }}
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
-          GIT_BRANCH: ${{ env.BRANCH }}
+          GIT_BRANCH: ${{ github.sha }}
 
       - name: 🟠 · 🧩 Setup Node & pnpm
         uses: vezham/vx-deployer/.github/actions/common/setup-install@timeline
@@ -75,11 +75,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.BRANCH }}
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
-          GIT_BRANCH: ${{ env.BRANCH }}
+          GIT_BRANCH: ${{ github.sha }}
 
       - name: 🟠 · 🧩 Setup Node & pnpm
         uses: vezham/vx-deployer/.github/actions/common/setup-install@timeline
@@ -99,11 +99,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.BRANCH }}
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
-          GIT_BRANCH: ${{ env.BRANCH }}
+          GIT_BRANCH: ${{ github.sha }}
 
       - name: 🟠 · 🧩 Setup Node & pnpm
         uses: vezham/vx-deployer/.github/actions/common/setup-install@timeline
@@ -123,11 +123,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.BRANCH }}
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
-          GIT_BRANCH: ${{ env.BRANCH }}
+          GIT_BRANCH: ${{ github.sha }}
 
       - name: 🟠 · 🧩 Setup Node & pnpm
         uses: vezham/vx-deployer/.github/actions/common/setup-install@timeline
@@ -147,11 +147,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.BRANCH }}
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
-          GIT_BRANCH: ${{ env.BRANCH }}
+          GIT_BRANCH: ${{ github.sha }}
 
       - name: 🟠 · 🧩 Setup Node & pnpm
         uses: vezham/vx-deployer/.github/actions/common/setup-install@timeline
@@ -172,11 +172,11 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.BRANCH }}
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
-          GIT_BRANCH: ${{ env.BRANCH }}
+          GIT_BRANCH: ${{ github.sha }}
 
       - name: 🟠 · 🧩 Setup Node & pnpm
         uses: vezham/vx-deployer/.github/actions/common/setup-install@timeline
@@ -196,13 +196,16 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    concurrency:
+      group: audit-${{ github.workflow }}-${{ github.sha }}
+      cancel-in-progress: false
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.BRANCH }}
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
-          GIT_BRANCH: ${{ env.BRANCH }}
+          GIT_BRANCH: ${{ github.sha }}
 
       - name: 🟠 · 🧩 Setup Node & pnpm
         uses: vezham/vx-deployer/.github/actions/common/setup-install@timeline
@@ -210,8 +213,6 @@ jobs:
           HEROUI_AUTH_TOKEN: ${{ secrets.HEROUI_AUTH_TOKEN }}
 
       - name: 🔵 · 🔍 Audit • Fallow & React Doctor
-        # id: audit
-        # continue-on-error: false
         shell: bash
         run: |
           pnpm nx run @vx:@vx-ws/audit

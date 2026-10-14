@@ -3,6 +3,8 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { auditPassed } from './gate.mjs'
+
 const root = fileURLToPath(new URL('../../../', import.meta.url))
 const output = path.join(root, 'test-output/audit')
 const minimumScore = 90
@@ -74,6 +76,10 @@ for (const audit of audits) {
     `${audit.name}: ${completed ? 'report ready' : 'audit failed'} — ${report}`
   )
 }
+for (const result of results) {
+  result.minimumScore = minimumScore
+  result.passed = auditPassed(result)
+}
 writeFileSync(
   path.join(output, 'summary.json'),
   `${JSON.stringify(results, null, 2)}\n`
@@ -91,9 +97,9 @@ for (const result of results) {
         : '')
   )
 
-  if (typeof result.score !== 'number' || result.score < minimumScore) {
+  if (!result.passed) {
     console.error(
-      `${result.tool}: ${result.scoreMetric} ${result.score ?? 'unavailable'} is below the required ${minimumScore}`
+      `${result.tool}: ${result.scoreMetric} ${result.score ?? 'unavailable'} does not meet the required ${minimumScore}/100 score gate`
     )
     process.exitCode = 1
   }
