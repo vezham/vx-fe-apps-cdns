@@ -49,7 +49,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
+      - name: 🔵 · 🔎 Set short SHA
+        shell: bash
+        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> "$GITHUB_ENV"
+
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.SHORT_SHA }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
@@ -75,7 +79,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
+      - name: 🔵 · 🔎 Set short SHA
+        shell: bash
+        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> "$GITHUB_ENV"
+
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.SHORT_SHA }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
@@ -99,7 +107,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
+      - name: 🔵 · 🔎 Set short SHA
+        shell: bash
+        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> "$GITHUB_ENV"
+
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.SHORT_SHA }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
@@ -123,7 +135,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
+      - name: 🔵 · 🔎 Set short SHA
+        shell: bash
+        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> "$GITHUB_ENV"
+
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.SHORT_SHA }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
@@ -147,7 +163,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
+      - name: 🔵 · 🔎 Set short SHA
+        shell: bash
+        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> "$GITHUB_ENV"
+
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.SHORT_SHA }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
@@ -172,7 +192,11 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
+      - name: 🔵 · 🔎 Set short SHA
+        shell: bash
+        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> "$GITHUB_ENV"
+
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.SHORT_SHA }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
@@ -201,7 +225,11 @@ jobs:
       cancel-in-progress: false
 
     steps:
-      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ github.sha }}
+      - name: 🔵 · 🔎 Set short SHA
+        shell: bash
+        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> "$GITHUB_ENV"
+
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.SHORT_SHA }}
         uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
         with:
           GIT_REPO: ${{ env.REPO }}
