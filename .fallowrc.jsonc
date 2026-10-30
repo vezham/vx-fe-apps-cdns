@@ -25,6 +25,8 @@
     "packages/vx/react/**"
   ],
   "entry": [
+    // vx-bot/NOTE: public/sw.js loads this published worker by URL with importScripts.
+    "apps-cdns/static-cdn/public/workers/sw.js",
     // vx-bot/NOTE: Generated apps import these shared stylesheet roots directly.
     "packages/vx/styles/{index.css,docs/index.css}",
     // vx-bot/NOTE: For Next.js app
