@@ -1,0 +1,133 @@
+# @vx/INFO: @vx/ci
+name: 📦 Release
+
+run-name: >-
+  📦 Release • ${{ github.event_name == 'schedule' && '🕒 Scheduled' || inputs.version != '' && inputs.version || '▶️ On demand' }}${{ inputs.dryRun && ' • 🧪 Dry run' || '' }}
+  - by @${{ github.actor || 'vx/ci' }}
+
+on:
+  schedule:
+    - cron: '30 23 * * 2,5' # every Wed, Sat at 05:00 AM IST
+  workflow_dispatch:
+    inputs:
+      version:
+        required: false
+        type: string
+        description: Explicit version or SemVer increment; empty uses conventional commits
+        default: ''
+      firstRelease:
+        required: false
+        type: boolean
+        description: Bootstrap without an existing release tag; provide an explicit version
+        default: false
+      dryRun:
+        required: false
+        type: boolean
+        description: Preview versioning, changelog and publishing without releasing
+        default: false
+
+concurrency:
+  group: npm-release-${{ github.repository }}
+  cancel-in-progress: false
+
+permissions:
+  actions: read # verify QA for the release commit
+  id-token: write # npm provenance
+  checks: write # check runs
+  contents: write # commits, tags, pushes
+  pull-requests: write # PR comments
+
+env:
+  REPO: ${{ github.repository }}
+  BRANCH: ${{ github.ref_name }}
+  ACTOR: ${{ github.actor || 'vx/ci' }}
+  NX_NO_CLOUD: true
+
+jobs:
+  release:
+    if: ${{ github.ref_type == 'branch' && (github.ref_name == github.event.repository.default_branch || inputs.dryRun == true) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      version: ${{ steps.release.outputs.version }}
+      published_count: ${{ steps.release.outputs.published_count }}
+      publishable_count: ${{ steps.release.outputs.publishable_count }}
+
+    steps:
+      - name: 🔵 · 🔎 Set short SHA
+        shell: bash
+        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> "$GITHUB_ENV"
+
+      - name: 🔵 · ✅ Validate release options
+        shell: bash
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+          FIRST_RELEASE: ${{ inputs.firstRelease }}
+        run: |
+          if [[ -n "$RELEASE_VERSION" && ! "$RELEASE_VERSION" =~ ^[0-9A-Za-z.+-]+$ ]]; then
+            echo 'Version must be a SemVer version or increment without shell syntax.' >&2
+            exit 1
+          fi
+          if [[ "$FIRST_RELEASE" == 'true' && -z "$RELEASE_VERSION" ]]; then
+            echo 'First release requires an explicit version, such as 0.0.1.' >&2
+            exit 1
+          fi
+
+      - name: 🔵 · ✅ Require successful QA for release commit
+        if: ${{ !inputs.dryRun }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_SHA: ${{ github.sha }}
+        run: |
+          qa_conclusion=$(gh api --method GET "repos/$REPO/actions/workflows/qa.yml/runs" \
+            -f head_sha="$RELEASE_SHA" -f branch="$BRANCH" -f per_page=1 \
+            --jq '.workflow_runs[0].conclusion // "missing or unfinished"')
+          if [[ "$qa_conclusion" != 'success' ]]; then
+            echo "Release blocked: latest QA for $RELEASE_SHA is $qa_conclusion. Rerun release after QA passes." >&2
+            exit 1
+          fi
+
+      - name: 🟠 · 🧰 Checkout • ${{ env.REPO }}@${{ env.SHORT_SHA }}
+        uses: vezham/vx-deployer/.github/actions/common/setup-checkout@timeline
+        with:
+          GIT_REPO: ${{ env.REPO }}
+          GIT_BRANCH: ${{ env.BRANCH }}
+
+      - name: 🟠 · 🧩 Setup Node & pnpm
+        uses: vezham/vx-deployer/.github/actions/common/setup-install-npm@timeline
+        with:
+          HEROUI_AUTH_TOKEN: ${{ secrets.HEROUI_AUTH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.VX_DEPLOYER_NPM }}
+
+      - name: 🟠 · 📦 NX • NPM Release
+        id: release
+        uses: vezham/vx-deployer/.github/actions/nx/release@timeline
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.VX_DEPLOYER_NPM }}
+          NPM_PROVENANCE: true
+          version: ${{ inputs.version }}
+          args: ${{ format('{0} {1}', inputs.firstRelease && '--firstRelease' || '', inputs.dryRun && '--dryRun' || '') }}
+
+      - name: 🟠 · ⛭ NX • Post Ops
+        if: always()
+        uses: vezham/vx-deployer/.github/actions/nx/post-ops@timeline
+
+  summary:
+    if: ${{ always() && needs.release.result != 'skipped' }}
+    needs: [release]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🟠 · 🧾 Release Summary
+        uses: vezham/vx-deployer/.github/actions/common/summary-release@timeline
+        with:
+          actor: ${{ env.ACTOR }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: ${{ inputs.version }}
+          resolved_version: ${{ needs.release.outputs.version }}
+          published_count: ${{ needs.release.outputs.published_count }}
+          publishable_count: ${{ needs.release.outputs.publishable_count }}
+          args: ${{ format('{0} {1}', inputs.firstRelease && '--firstRelease' || '', inputs.dryRun && '--dryRun' || '') }}
+          release_result: ${{ needs.release.result }}

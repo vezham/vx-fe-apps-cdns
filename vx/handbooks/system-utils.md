@@ -1,6 +1,6 @@
 # System Utilities
 
-`@vx/system-utils` contains small, app-agnostic utilities shared by Vx apps and
+`@vezham/utils` contains small, app-agnostic utilities shared by Vx apps and
 packages. Keep each public utility in a focused package subpath rather than
 adding exports to the package root. Add a new subpath to the package's `exports`
 map when a new utility group is introduced.
@@ -9,10 +9,10 @@ package export entry point.
 
 ## Name utilities
 
-Import name helpers from `@vx/system-utils/name`:
+Import name helpers from `@vezham/utils/name`:
 
 ```ts
-import { getInitials } from '@vx/system-utils/name'
+import { getInitials } from '@vezham/utils/name'
 ```
 
 `getInitials` returns the uppercase first letters of the first two non-empty

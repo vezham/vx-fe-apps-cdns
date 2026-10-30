@@ -14,9 +14,9 @@
       "!{projectRoot}/vitest.config.[jt]s",
       "!{projectRoot}/test-setup.[jt]s"
     ],
-    "sharedGlobals": []
+    "sharedGlobals": ["{workspaceRoot}/packages/vx/styles/**/*"]
   },
-  "nxCloudId": "6887e1bae4deca638dc2324a",
+  "nxCloudId": "6add54f5c6219b46c1c5863c",
   "plugins": [
     {
       "plugin": "@nx/js/typescript",
@@ -39,8 +39,7 @@
         "devTargetName": "dev",
         "startTargetName": "start",
         "watchDepsTargetName": "watch-deps",
-        "buildDepsTargetName": "build-deps",
-        "typecheckTargetName": "typecheck"
+        "buildDepsTargetName": "build-deps"
       }
     },
     {
@@ -84,7 +83,14 @@
         "buildDepsTargetName": "build-deps",
         "watchDepsTargetName": "watch-deps"
       }
-    }
+    },
+    {
+      "plugin": "@nx/oxlint",
+      "options": {
+        "targetName": "oxlint"
+      }
+    },
+    "@vx-cli/react"
   ],
   "targetDefaults": {
     "lint": {
@@ -108,10 +114,8 @@
         "^production",
         "{workspaceRoot}/vitest.config.ts",
         "{workspaceRoot}/vx/__tests__/**/*",
-        "{workspaceRoot}/packages/vx/config/src/lib/framework.ts",
-        "{workspaceRoot}/packages/vx/config/src/lib/integrations/vitest/**/*",
         {
-          "externalDependencies": ["vitest"]
+          "externalDependencies": ["vitest", "@vezham/config"]
         },
         {
           "fileset": "{projectRoot}/tsconfig.spec.json",
@@ -165,7 +169,7 @@
       "cache": false,
       "options": {
         "cwd": "{workspaceRoot}",
-        "command": "tsx packages/vx/config/src/lib/metadata/cli.ts generate {projectRoot}"
+        "command": "vezham-metadata generate {projectRoot}"
       }
     },
     "deploy:generate": {
@@ -174,8 +178,9 @@
       "inputs": [
         "{projectRoot}/vx.app.yaml",
         "{projectRoot}/vx.deploy.yaml",
-        "{workspaceRoot}/packages/vx/config/src/lib/yaml-config.ts",
-        "{workspaceRoot}/packages/vx/config/src/lib/deploy/**/*"
+        {
+          "externalDependencies": ["@vezham/config"]
+        }
       ],
       "outputs": [
         "{workspaceRoot}/vx/deploy/firebase/{projectRoot}.json",
@@ -183,7 +188,7 @@
       ],
       "options": {
         "cwd": "{workspaceRoot}",
-        "command": "tsx packages/vx/config/src/lib/deploy/cli.ts generate {projectRoot}"
+        "command": "vezham-deploy generate {projectRoot}"
       }
     },
     "metadata:watch": {
@@ -191,7 +196,7 @@
       "continuous": true,
       "options": {
         "cwd": "{workspaceRoot}",
-        "command": "tsx packages/vx/config/src/lib/metadata/cli.ts watch {projectRoot}"
+        "command": "vezham-metadata watch {projectRoot}"
       }
     },
     "openapi:generate": {
@@ -202,11 +207,13 @@
         "{projectRoot}/content/docs/**/*",
         "{projectRoot}/openapi.yaml",
         "{projectRoot}/openapi/**/*",
-        "{workspaceRoot}/packages/vx/config/src/lib/presets/docs/**/*"
+        {
+          "externalDependencies": ["@vezham/config"]
+        }
       ],
       "options": {
         "cwd": "{workspaceRoot}",
-        "command": "tsx packages/vx/config/src/lib/presets/docs/cli.ts generate {projectRoot}"
+        "command": "vezham-docs generate {projectRoot}"
       }
     },
     "og:generate": {
@@ -218,26 +225,22 @@
         "{projectRoot}/content/**/*",
         "{projectRoot}/openapi.yaml",
         "{projectRoot}/openapi/**/*",
-        "{workspaceRoot}/packages/vx/config/src/lib/presets/docs/**/*",
-        "{workspaceRoot}/packages/vx/config/src/lib/presets/files.ts",
-        "{workspaceRoot}/packages/vx/config/src/lib/presets/route-files.ts",
         "{projectRoot}/public/**/*",
         "!{projectRoot}/public/og/**/*",
-        "{workspaceRoot}/packages/vx/config/src/lib/i18n.ts",
-        "{workspaceRoot}/packages/vx/config/src/lib/yaml-config.ts",
         {
           "externalDependencies": [
             "@vercel/og",
             "@fontsource/inter",
             "@fontsource/jura",
-            "@vezham/icons-react"
+            "@vezham/icons-react",
+            "@vezham/config"
           ]
         }
       ],
       "outputs": ["{projectRoot}/public/og"],
       "options": {
         "cwd": "{workspaceRoot}",
-        "command": "tsx packages/vx/config/src/lib/presets/docs/cli.ts og {projectRoot}"
+        "command": "vezham-docs og {projectRoot}"
       }
     },
     "serve:next": {
@@ -264,22 +267,22 @@
     "@nx/react": {
       "application": {
         "babel": true,
-        "style": "tailwind",
+        "style": "css",
         "linter": "eslint",
         "bundler": "vite"
       },
       "component": {
-        "style": "tailwind"
+        "style": "css"
       },
       "library": {
-        "style": "tailwind",
+        "style": "css",
         "linter": "eslint",
         "unitTestRunner": "vitest"
       }
     },
     "@nx/next": {
       "application": {
-        "style": "tailwind",
+        "style": "css",
         "linter": "eslint"
       }
     }
@@ -287,7 +290,7 @@
   "release": {
     "projects": ["*", "!@vx/fe-kit"],
     "version": {
-      "preVersionCommand": "pnpm nx run-many -t build",
+      "preVersionCommand": "pnpm nx run @vx:@vx-ci/build",
       "conventionalCommits": true,
       "versionActions": "./vx/tools/release/version-actions.cjs"
     },
@@ -325,8 +328,12 @@
       }
     },
     "releaseTag": {
-      "pattern": "{version}"
+      "pattern": "{version}",
+      "strictPreid": false
     }
   },
-  "analytics": false
+  "analytics": false,
+  "affected": {
+    "legacy": true
+  }
 }

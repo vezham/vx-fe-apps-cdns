@@ -1,5 +1,12 @@
 # @vx/INFO: @vx/ci
-name: QA
+name: 🧪 QA
+
+run-name: >-
+  ${{
+    github.event_name == 'schedule' && '🧪 QA • 🕒 Scheduled' ||
+    github.event_name == 'workflow_dispatch' && '🧪 QA • ▶️ On demand' ||
+    ''
+  }}
 
 run-name: >
   🧪 QA • ${{
@@ -17,9 +24,9 @@ on:
   push:
     branches:
       - timeline
-      - next
-      - next-template
-      - feat/**
+      - next**
+      - feat**
+      - fix**
     # paths:
     #   - '.github/workflows/qa.yml'
     #   - 'vx/handbooks/ci.md'
@@ -131,7 +138,7 @@ jobs:
         if: always()
         uses: vezham/vx-deployer/.github/actions/nx/post-ops@timeline
 
-  prettier:
+  format:
     runs-on: ubuntu-latest
 
     steps:
@@ -210,6 +217,12 @@ jobs:
       - name: 🔵 · 🎭 E2E • Playwright
         shell: bash
         run: |
+          E2E_PROJECTS="$(pnpm nx show projects --withTarget e2e --json)"
+          if [ "$E2E_PROJECTS" = "[]" ]; then
+            echo "No Nx projects define an e2e target; skipping Playwright install."
+            exit 0
+          fi
+
           npx playwright install --with-deps
           pnpm nx run-many -t e2e
 
@@ -257,7 +270,7 @@ jobs:
 
   summary:
     if: always()
-    needs: [audit, build, types, lint, prettier, tests, e2e]
+    needs: [audit, build, types, lint, format, tests, e2e]
     runs-on: ubuntu-latest
 
     steps:
@@ -270,6 +283,6 @@ jobs:
           build_result: ${{ needs.build.result }}
           types_result: ${{ needs.types.result }}
           lint_result: ${{ needs.lint.result }}
-          prettier_result: ${{ needs.prettier.result }}
+          format_result: ${{ needs.format.result }}
           tests_result: ${{ needs.tests.result }}
           e2e_result: ${{ needs.e2e.result }}

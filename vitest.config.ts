@@ -4,12 +4,12 @@ import { fileURLToPath } from 'node:url'
 import { loadConfigFromFile, mergeConfig } from 'vite'
 import { parse } from 'yaml'
 
-import { type ViteConfig, getProjectPackageName } from '@vx/config/vite'
+import { type ViteConfig, getProjectPackageName } from '@vezham/config/vite'
 import {
   defineConfig,
   defineFrameworkTestConfig,
   validateFramework
-} from '@vx/config/vitest'
+} from '@vezham/config/vitest'
 
 const configFile = fileURLToPath(import.meta.url)
 
@@ -37,6 +37,20 @@ export default defineConfig(async env => {
       watch: false,
       globals: true,
       environment: 'node',
+      // vx-bot/NOTE: Transform installed packages so import.meta.env and mocks use Vite's module runner.
+      server: {
+        deps: {
+          inline: [
+            '@vezham/start',
+            '@vezham/env',
+            '@vezham/react',
+            '@vezham/template',
+            '@vezham/devtools',
+            '@vezham/hooks',
+            '@vezham/utils'
+          ]
+        }
+      },
       include: [
         '{src,tests,__tests__}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'
       ],

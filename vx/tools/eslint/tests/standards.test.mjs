@@ -196,6 +196,9 @@ const cases = [
   [barrel, "export { default as A } from './a'", 0],
   [barrel, "export { A as B } from './a'", 0],
   [barrel, "export const x = 1; export { A } from './a'", 0],
+  [barrel, "export { A } from '@vezham/hooks'", 0],
+  [barrel, "export type { A } from 'other-package'", 0],
+  [barrel, "export { A } from '@vezham/hooks'; export { B } from './b'", 1],
   [
     props,
     'type PageProps = { value: string }; export const Page = (p: PageProps) => null',
@@ -266,6 +269,71 @@ export default config.map(entry => entry.basePath ? { ...entry, basePath: ${JSON
   }
   return root
 }
+
+test('wildcard rule recognizes exact, conditional, and wildcard package entries from any cwd', async t => {
+  const root = await createWorkspace(t)
+  const project = path.join(root, 'packages/example')
+  await writeFile(
+    path.join(project, 'package.json'),
+    JSON.stringify({
+      exports: {
+        './public': './src/lib/public/index.ts',
+        './conditional': {
+          types: './src/lib/conditional/index.ts',
+          default: './workspace/conditional.js'
+        },
+        './features/*': {
+          '@vx/fe-kit': './src/lib/features/*/index.ts',
+          import: './dist/lib/features/*/index.js'
+        },
+        './version': './src/lib/version.v1/index.ts',
+        './fallback': [null, { types: './src/lib/fallback/index.ts' }]
+      }
+    })
+  )
+  for (const cwd of [root, project]) {
+    const lint = new ESLint({
+      cwd,
+      overrideConfigFile: true,
+      overrideConfig: [
+        {
+          files: ['**/*.ts'],
+          languageOptions: { parser },
+          plugins: { vx: { rules: { barrel } } },
+          rules: { 'vx/barrel': 'error' }
+        }
+      ]
+    })
+    for (const [file, expected] of [
+      ['public/index.ts', 0],
+      ['conditional/index.ts', 0],
+      ['features/one/index.ts', 0],
+      ['features/nested/one/index.ts', 0],
+      ['version.v1/index.ts', 0],
+      ['versionXv1/index.ts', 1],
+      ['fallback/index.ts', 0],
+      ['internal/index.ts', 1],
+      ['public/internal/index.ts', 1]
+    ]) {
+      const filePath = path.join(project, 'src/lib', file)
+      const [result] = await lint.lintText("export { A } from './a'", {
+        filePath
+      })
+      assert.equal(result.errorCount, expected, `${cwd}: ${file}`)
+    }
+    const nested = path.join(project, 'src/lib/nested')
+    await mkdir(nested, { recursive: true })
+    await writeFile(path.join(nested, 'package.json'), '{invalid json')
+    const [result] = await lint.lintText("export { A } from './a'", {
+      filePath: path.join(nested, 'index.ts')
+    })
+    assert.equal(
+      result.errorCount,
+      1,
+      'Malformed package metadata must not exempt internal barrels'
+    )
+  }
+})
 
 test('shared configuration scopes framework exceptions and agent exclusion', async t => {
   const root = await createWorkspace(t)

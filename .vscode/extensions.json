@@ -12,6 +12,7 @@
     "PKief.material-icon-theme",
     "github.vscode-github-actions",
     "yoavbls.pretty-ts-errors",
-    "humao.rest-client"
+    "humao.rest-client",
+    "oxc.oxc-vscode"
   ]
 }

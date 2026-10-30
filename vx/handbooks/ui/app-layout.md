@@ -1,6 +1,6 @@
 # App layout
 
-`AppLayout` from `@vx/react/layouts/app` is the shared application shell for
+`AppLayout` from `@vezham/react/layouts/app` is the shared application shell for
 TanStack Router apps. It owns navigation, app menus, user state, toolbar actions,
 commands, info panels, and workspace navigation state. Apps own root route
 metadata, document setup, generated configuration, and route declarations.
@@ -11,7 +11,7 @@ When `children` is omitted, the layout renders the router's `<Outlet />`.
 Explicit children replace the outlet; `null` renders no content.
 
 ```tsx
-import { AppLayout } from '@vx/react/layouts/app'
+import { AppLayout } from '@vezham/react/layouts/app'
 
 import { appMenu, navigationItems } from '@generated/navigation'
 
@@ -46,7 +46,7 @@ The demo enables Settings and passes generated Control Center and language
 configuration:
 
 ```tsx
-import { AppLayout } from '@vx/react/layouts/app'
+import { AppLayout } from '@vezham/react/layouts/app'
 
 import { appMenu, controlCenter, navigationItems } from '@generated/navigation'
 import { vxI18n } from '@generated/vx'
@@ -67,7 +67,7 @@ const Layout = () => (
 ```tsx
 import { createFileRoute } from '@tanstack/react-router'
 
-import { SettingsRoute, validateSearch } from '@vx/react/pages/settings'
+import { SettingsRoute, validateSearch } from '@vezham/react/pages/settings'
 
 import { controlCenter } from '@generated/navigation'
 
@@ -94,7 +94,7 @@ receive their own context explicitly.
 Use `controlCenterSlot` for custom registrations, adapters, or event handling:
 
 ```tsx
-import { ConfiguredControlCenter } from '@vx/react/control-center'
+import { ConfiguredControlCenter } from '@vezham/react/control-center'
 
 const Layout = () => (
   <AppLayout

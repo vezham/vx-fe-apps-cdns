@@ -19,6 +19,6 @@ Each schema is self-contained and uses JSON Schema draft-07. Publish the files
 unchanged at their `$id` URLs under `https://vezham.com/schemas/` when hosting is
 ready. The `$id` identifies the schema; it does not publish it.
 
-Keep the schemas aligned with `packages/vx/config` when adding or changing
+Keep the schemas aligned with `@vezham/config` when adding or changing
 configuration fields. These schemas provide editor validation; the CLI's
 existing runtime validation remains separate.

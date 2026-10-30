@@ -68,7 +68,7 @@ toolbar:
     icon: vx:plus
 ```
 
-Use `getNavigationToolbar(navigationItems, pathname)` from `@vx/react` to resolve
+Use `getNavigationToolbar(navigationItems, pathname)` from `@vezham/react` to resolve
 the deepest matching destination and its ancestors. Toolbar fields inherit
 until explicitly overridden. Search objects, primary actions, and menu arrays
 are replaced as whole fields. `search: false`, `sync: false`,
@@ -108,7 +108,7 @@ native consumers can interpret the same configuration independently.
 ## Action dispatch
 
 `AppLayout` provides an app-scoped toolbar dispatcher. Import its hooks from
-`@vx/react/toolbar-actions`. Toolbars emit `{ actionKey, pageKey, pathname }`;
+`@vezham/react/toolbar-actions`. Toolbars emit `{ actionKey, pageKey, pathname }`;
 their adapters only prepare rendering and dispatch, without performing actions.
 Clicks and shortcuts use the same dispatch path. Search input remains controlled
 separately.
@@ -136,7 +136,7 @@ Standalone consumers can mount `ToolbarActionsProvider` without `AppLayout`.
 tooltip say Sync. App handlers currently show “Server sync is not implemented
 yet.” without reloading or invalidating the route. Replace the notice with
 server synchronization when available. Shared layouts invoke the app's `onSync`
-callback; `@vx/start` mounts the toast provider once in its shared app provider,
+callback; `@vezham/start` mounts the toast provider once in its shared app provider,
 including apps that do not use `AppLayout`.
 
 `metadata:generate` writes `src/generated/navigation.ts` when the YAML file
@@ -154,7 +154,7 @@ badges, permission filtering, and stateful tabs belong in handwritten code
 that consumes the generated data. This generator targets the web shell;
 other repositories may adapt the shared keys and hierarchy for native screens.
 
-Use `SectionLayout` from `@vx/react/layouts/section` for route sections with
+Use `SectionLayout` from `@vezham/react/layouts/section` for route sections with
 header tabs and an optional sidebar. It uses the shell's shared collapse state,
 a 224px desktop sidebar, and a drawer on small screens. Pass section destinations
 through `sidebarItems`, the active section's children through `tabs`, and custom

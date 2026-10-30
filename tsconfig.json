@@ -6,24 +6,6 @@
   "files": [],
   "references": [
     {
-      "path": "./packages/vx/start"
-    },
-    {
-      "path": "./packages/vx/system-utils"
-    },
-    {
-      "path": "./packages/vx/template"
-    },
-    {
-      "path": "./packages/vx/env"
-    },
-    {
-      "path": "./packages/vx/devtools"
-    },
-    {
-      "path": "./packages/vx/config"
-    },
-    {
       "path": "./packages/vx/react"
     },
     {

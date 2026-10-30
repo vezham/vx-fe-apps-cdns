@@ -4,9 +4,8 @@ A Control Center is a compact overlay for frequent preferences. It uses an
 ordered tile registry and a local panel outlet for detail screens. Opening a
 detail screen does not add a browser-history entry; Back returns to home.
 
-The shared implementation is `ControlCenter` in
-`packages/vx/react/src/lib/components/panel/footer/control-center`, exported
-from `@vx/react/control-center`. The package root also exports the main
+The shared implementation is `ControlCenter`, exported from
+`@vezham/react/control-center`. The package root also exports the main
 `ControlCenter` and `ControlCenterProps`; tile helpers and their types live under
 the dedicated path. It accepts a typed `tiles` registry and current `context`;
 the React package owns the tile UI, options lists, appearance behavior, and
@@ -113,8 +112,8 @@ uses `context.language` for routed languages, or `context.i18n` to
 update the HTML language attribute (English by default).
 
 ```tsx
-import { ConfiguredControlCenter } from '@vx/react/control-center'
-import { useToolbarAction } from '@vx/react/toolbar-actions'
+import { ConfiguredControlCenter } from '@vezham/react/control-center'
+import { useToolbarAction } from '@vezham/react/toolbar-actions'
 
 import { controlCenter } from '@generated/navigation'
 
@@ -167,7 +166,7 @@ import {
   LanguageSettings,
   LanguageTile,
   type TileDefinition
-} from '@vx/react/control-center'
+} from '@vezham/react/control-center'
 
 type Context = {
   language: LanguageAdapter
@@ -228,6 +227,10 @@ gutters when rows need more breathing room.
 
 The grid governs placement. A tile component governs its content, including
 truncation, icon size, and direct action.
+
+The Settings gallery reuses this grid and its span variants for both suggested
+controls and the live preview. A control selected at any span must retain that
+same footprint after it is added to Control Center.
 
 ## Panel outlet
 

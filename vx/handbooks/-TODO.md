@@ -5,7 +5,7 @@ app/main.tsx
 
 ---
 
-packages/vx/start/src/lib/provider/src
+`@vezham/start` provider implementation (in `vx-fe-pkgs-timeline`)
 
 - Vmode, templates, Provider's
 

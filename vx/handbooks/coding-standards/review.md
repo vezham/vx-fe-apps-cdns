@@ -4,10 +4,10 @@ Use the shared ESLint configuration to check automated coding standards:
 
 ```bash
 # Check a project
-pnpm nx run @vx/template:lint
+pnpm nx run @vezham/template:lint
 
 # Apply supported lint autofixes
-pnpm nx run @vx/template:lint --fix
+pnpm nx run @vezham/template:lint --fix
 
 # Check all projects with a lint target
 pnpm nx run-many -t lint
@@ -71,8 +71,11 @@ spreads or wrapper components. Comment checks cannot judge explanation quality
 or infer authorship; recognized agent prefixes must use `vx-bot`.
 Wildcard checks target barrels below `src/lib` and the `src/components`,
 `src/pages`, `src/store`, and `src/hooks` directories. Public `src/index.ts`
-entries and intentional aliases remain explicit. Use a documented rule
-suppression for a selective public subpath entry inside those directories.
+entries and intentional aliases remain explicit. The wildcard rule also allows
+selective re-exports from package paths and source entry points declared in the
+nearest package's `exports`, including conditional and wildcard targets. These
+API boundaries do not need rule suppressions; internal relative barrels remain
+subject to the check.
 
 The rule autofixes simple top-level private functions used only in direct calls
 and named exported hooks such as `usePosts`. Other exports and ambiguous cases

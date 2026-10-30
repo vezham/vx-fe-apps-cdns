@@ -32,9 +32,13 @@ is excluded only from duplication checks. Framework entry points and targeted
 false positives are configured separately so authored code remains covered.
 React Doctor supply-chain API calls remain disabled.
 
-The workspace-only template keeps reusable docs pages exported explicitly from
-`@vx/start` and registers the shared stylesheet roots as audit entry points.
-Removing reference apps must not make these generated-app inputs appear unused.
+This workspace consumes published `@vezham/*` packages from npm. Fallow analyzes
+workspace-owned code and configuration; it does not require local public-package
+source exports or builds. The shared stylesheet roots under `packages/vx/styles`
+are explicit entry points because generated apps import them directly. Their
+`@vezham/start/styles/docs` import resolves through the installed package's CSS
+export.
+
 Keep Next.js in the root development dependencies in both the source workspace
 and workspace-only template. Current Nx build and start commands use the full
 workspace installation; Next apps using production-only installations must
@@ -42,6 +46,12 @@ declare their own runtime dependency.
 
 Review findings before adding suppressions. Do not add these audits to the
 formatter; QA enforces the reviewed `minimumScore` baseline.
+
+`@vezham/start` keeps component implementations separate from configuration
+factories, route helpers, and layout/page registries so Fast Refresh can track
+component exports. Public entry points re-export these modules with the existing
+package subpaths and export names. Preserve those entry points when reorganizing
+implementations instead of suppressing mixed-export warnings.
 
 Preview Fallow's suggested cleanup with `pnpm exec fallow fix --dry-run` before
 applying individual fixes. Confirm actual runtime, CSS, CLI, and optional peer
@@ -53,6 +63,10 @@ The Fallow dependency exceptions cover these indirect uses:
 
 - `@fontsource/inter` and `@fontsource/jura`: OG font files loaded with
   `require.resolve`; `@vezham/styles-v3`: imported from the shared CSS entry.
+- The required peers of `@vezham/react-pro-v3` and `@vezham/react-v3`: HeroUI,
+  React Aria/Stately, date utilities, motion, panels, and Tailwind merge are
+  supplied at the root for published UI packages. Keep the React Aria versions
+  aligned as described in the CLI template baseline.
 - The listed Pro optional peers: retained for the workspace's component demos
   and supported component features; review them when `@vezham/react-pro-v3`
   changes or those features are removed.
@@ -62,6 +76,8 @@ The Fallow dependency exceptions cover these indirect uses:
 - Root-declared dependencies used by private workspace packages: this workspace
   installs them centrally instead of repeating declarations in each package.
   The exact names in `ignoreDependencies` were checked against the root manifest.
+- `@testing-library/jest-dom`: the shared Vitest setup imports matchers from the
+  root development dependency. Keep that declaration at the root.
 - `@vezham/react-v2`: intentionally retained as a build-time demo dependency.
   Revisit its placement if deployment starts installing production dependencies
   to execute code that imports it directly.
@@ -70,6 +86,9 @@ Use exact package names. `ignoreDependencies` suppresses both unused and
 unlisted dependency findings, so keep these packages declared and review the
 exceptions alongside dependency updates. Tool-only dependencies belong in
 `framework.toolingDependencies` instead.
+
+The root dependencies include `@vezham/start` because the shared docs stylesheet
+imports its CSS export from outside an application package.
 
 Fallow's average maintainability score also includes a penalty for each file's
 number of imports. It is not a percentage of resolved findings; removing all
@@ -81,9 +100,12 @@ Fallow sets `health.maxCrap` to `0` to disable coverage-based risk findings and
 enabled. Fallow may still display estimated coverage and risk metrics; disabling
 enforcement does not change the overall health score's fixed calibration.
 
-The audit target depends on `test:eslint`, which runs the lint-rule tests and
-generates a c8 coverage report before auditing. A test failure blocks the audit.
-Run the tests separately with `pnpm nx run @vx:test:eslint`. Fallow does not
+The audit target depends on `test:eslint` and `test:audit`. The first runs the
+lint-rule tests and generates a c8 coverage report; the second runs the audit
+gate and runner regression tests. A test failure blocks the audit. Run them
+separately with `pnpm nx run @vx:test:eslint` or `pnpm nx run @vx:test:audit`.
+Fallow registers these Node test files as entry points because the CLI discovers
+them outside the application import graph. Fallow does not
 consume the coverage report while coverage enforcement is disabled. When
 reintroducing enforcement, restore the report path and an appropriate risk
 threshold.

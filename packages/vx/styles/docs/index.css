@@ -1,11 +1,12 @@
+/* wjdlz/NOTE: for vx-pkgs */
+@import '@vezham/start/styles/docs';
+
+/* wjdlz/NOTE: for vx-oss/docs */
 @import '@vezham/docs-react/css/neutral.css';
 @import '@vezham/docs-react/css/preset.css';
 @import '@vezham/docs-react/css/generated/glass.css';
 @import '@vezham/docs-story/css/preset.css';
 @import '@vezham/docs-openapi/css/preset.css';
-
-@source '../../start/src/lib/layouts/docs';
-@source '../../start/src/lib/pages/docs';
 
 @variant xl {
   #nd-notebook-layout :is(#nd-page, #nd-toc) {

@@ -1,8 +1,5 @@
-import react from '@vitejs/plugin-react-swc'
-
-import { defineConfig } from '@vx/config/vite'
+import { defineConfig } from '@vezham/config/vite-lib/react'
 
 export default defineConfig({
-  root: __dirname,
-  plugins: [react()]
+  root: import.meta.dirname
 })

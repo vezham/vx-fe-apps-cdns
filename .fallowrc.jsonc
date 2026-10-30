@@ -21,8 +21,8 @@
     "**/content/**/(generated)/**",
     "**/routeTree.gen.ts",
     "apps*/**/*-mock/**",
-    // vx-bot/NOTE: Fallow sees this CSS-only directory in the workspace glob but it has no package.json.
-    "packages/vx/styles"
+    // vx-bot/NOTE: Legacy implementations are outside this npm-consumer workspace.
+    "packages/vx/react/**"
   ],
   "entry": [
     // vx-bot/NOTE: Generated apps import these shared stylesheet roots directly.
@@ -36,11 +36,11 @@
     // vx-bot/NOTE: For TanStack Docs app
     "**/content/**/*.mdx",
     // vx-bot/NOTE: Workspace CLI, release, and test files load outside the app import graph.
-    "packages/vx/config/src/lib/{metadata,deploy}/cli.ts",
-    "packages/vx/config/src/lib/presets/docs/cli.ts",
     "vx/tools/audit/index.mjs",
+    "vx/tools/audit/*.test.mjs",
     "vx/tools/eslint/tests/*.test.mjs",
     "vx/tools/release/index.ts",
+    "vx/tools/release/*.test.ts",
     "vx/tools/release/version-actions.cjs"
   ],
   "framework": [
@@ -52,6 +52,8 @@
         "@nx/plugin",
         "@swc-node/register",
         "@swc/helpers",
+        // vx-bot/NOTE: The Nx test:eslint command invokes c8 for rule coverage.
+        "c8",
         "eslint-config-prettier",
         "eslint-plugin-import",
         "eslint-plugin-react",
@@ -67,6 +69,33 @@
     }
   ],
   "ignoreDependencies": [
+    // vx-bot/NOTE: Root-supplied framework integrations remain available for generated Next and TanStack apps.
+    "@tailwindcss/postcss",
+    "@tanstack/react-router",
+    "@tanstack/react-router-devtools",
+    "@tanstack/react-start",
+    "@tanstack/router-cli",
+    "@tanstack/router-plugin",
+    "next",
+    // vx-bot/NOTE: Required peers of @vezham/react-pro-v3 and @vezham/react-v3.
+    "@heroui/react",
+    "@internationalized/date",
+    "@react-aria/utils",
+    "motion",
+    "react-aria",
+    "react-aria-components",
+    "react-resizable-panels",
+    "react-stately",
+    "tailwind-merge",
+    // vx-bot/NOTE: @vezham/config/vite-lib loads this root-supplied declaration plugin.
+    "vite-plugin-dts",
+    // vx-bot/NOTE: Published packages are declared at root and supplied to app workspaces.
+    "@vezham/config",
+    "@vezham/env",
+    "@vezham/react",
+    "@vezham/start",
+    "@vezham/template",
+    "@vezham/utils",
     "@fontsource/inter",
     "@fontsource/jura",
     "@next/eslint-plugin-next",
@@ -77,6 +106,8 @@
     "@tanstack/react-devtools",
     "@tanstack/react-query",
     "@tanstack/react-query-devtools",
+    // vx-bot/NOTE: Shared Vitest setup uses this dependency declared at the workspace root.
+    "@testing-library/jest-dom",
     "@testing-library/react",
     "@tiptap/core",
     "@tiptap/extension-link",

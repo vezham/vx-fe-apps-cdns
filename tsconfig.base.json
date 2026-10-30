@@ -17,7 +17,6 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["@vx/fe-kit"],
     "noUncheckedSideEffectImports": false,
     "types": ["*"],
     "esModuleInterop": false,

@@ -1,6 +1,6 @@
 {
   "name": "@vx/react",
-  "version": "26.0.0-alpha.1",
+  "version": "26.0.0",
   "private": true,
   "exports": {
     "./package.json": "./package.json",
@@ -8,72 +8,8 @@
       "types": "./src/index.ts",
       "import": "./src/index.ts",
       "default": "./src/index.ts"
-    },
-    "./control-center": {
-      "types": "./src/lib/components/panel/footer/control-center/index.tsx",
-      "import": "./src/lib/components/panel/footer/control-center/index.tsx",
-      "default": "./src/lib/components/panel/footer/control-center/index.tsx"
-    },
-    "./actions-header": {
-      "types": "./src/lib/components/actions-header/index.tsx",
-      "import": "./src/lib/components/actions-header/index.tsx",
-      "default": "./src/lib/components/actions-header/index.tsx"
-    },
-    "./app-icon": {
-      "types": "./src/lib/components/app-icon/index.tsx",
-      "import": "./src/lib/components/app-icon/index.tsx",
-      "default": "./src/lib/components/app-icon/index.tsx"
-    },
-    "./date": {
-      "types": "./src/lib/utils/date.ts",
-      "import": "./src/lib/utils/date.ts",
-      "default": "./src/lib/utils/date.ts"
-    },
-    "./bookmarks/favorites": {
-      "types": "./src/lib/components/panel/header/bookmarks/favorites/index.tsx",
-      "import": "./src/lib/components/panel/header/bookmarks/favorites/index.tsx",
-      "default": "./src/lib/components/panel/header/bookmarks/favorites/index.tsx"
-    },
-    "./layouts/*": {
-      "types": "./src/lib/layouts/*/index.tsx",
-      "import": "./src/lib/layouts/*/index.tsx",
-      "default": "./src/lib/layouts/*/index.tsx"
-    },
-    "./shortcut-key": {
-      "types": "./src/lib/components/shortcut-key/index.tsx",
-      "import": "./src/lib/components/shortcut-key/index.tsx",
-      "default": "./src/lib/components/shortcut-key/index.tsx"
-    },
-    "./user": {
-      "types": "./src/lib/store/users/useUserStore.tsx",
-      "import": "./src/lib/store/users/useUserStore.tsx",
-      "default": "./src/lib/store/users/useUserStore.tsx"
-    },
-    "./workspace-navigation": {
-      "types": "./src/lib/components/workspace-navigation/index.tsx",
-      "import": "./src/lib/components/workspace-navigation/index.tsx",
-      "default": "./src/lib/components/workspace-navigation/index.tsx"
-    },
-    "./toolbar-actions": {
-      "types": "./src/lib/components/toolbar-actions/index.tsx",
-      "import": "./src/lib/components/toolbar-actions/index.tsx",
-      "default": "./src/lib/components/toolbar-actions/index.tsx"
-    },
-    "./mobile-controls": {
-      "types": "./src/lib/components/mobile-controls/index.tsx",
-      "import": "./src/lib/components/mobile-controls/index.tsx",
-      "default": "./src/lib/components/mobile-controls/index.tsx"
-    },
-    "./pages/settings": {
-      "types": "./src/lib/pages/settings/index.tsx",
-      "import": "./src/lib/pages/settings/index.tsx",
-      "default": "./src/lib/pages/settings/index.tsx"
     }
   },
   "main": "./src/index.ts",
-  "types": "./src/index.ts",
-  "dependencies": {
-    "@tanstack/react-hotkeys": "catalog:",
-    "react-aria-components": "catalog:"
-  }
+  "types": "./src/index.ts"
 }

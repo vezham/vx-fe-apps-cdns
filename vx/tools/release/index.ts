@@ -1,80 +1,79 @@
-import { releaseChangelog, releasePublish, releaseVersion } from 'nx/release'
-import yargs from 'yargs'
+import { createProjectGraphAsync } from '@nx/devkit'
+import { appendFileSync } from 'node:fs'
+import { ReleaseClient, releaseChangelog, releaseVersion } from 'nx/release'
+import { hideBin } from 'yargs/helpers'
+import yargs from 'yargs/yargs'
+
+import { generateReleaseMetadata } from './generate-metadata'
+import { runRelease } from './run-release'
 
 const NS = '[vezham] TOOLS/release'
 
 const main = async () => {
-  const options = await yargs
+  const options = await yargs(hideBin(process.argv))
     .version(false)
+    .strict()
     .option('version', {
       alias: 'v',
       description:
-        'Explicit version specifier to use, if overriding conventional commits',
+        'Explicit version or increment; empty uses conventional commits',
       type: 'string',
       default: ''
     })
     .option('dryRun', {
       alias: 'd',
-      description:
-        'Whether or not to perform a dry-run of the release process, defaults to false',
+      description: 'Preview release operations without writing or publishing',
       type: 'boolean',
       default: false
     })
     .option('verbose', {
-      description:
-        'Whether or not to enable verbose logging, defaults to false',
+      description: 'Enable verbose logging',
       type: 'boolean',
       default: false
     })
     .option('firstRelease', {
       alias: 'fr',
-      description: 'firstRelease',
+      description:
+        'Bootstrap a release without previous tags; requires a version',
       type: 'boolean',
       default: false
     })
     .parseAsync()
   console.log(NS, '[data] options: ', JSON.stringify(options))
 
-  // vx-bot/NOTE: Retained release-channel branch logic for a future canary flow.
-  // let op_version = ''
-  // vx-bot/NOTE: Get current branch
-  // const currentBranch = execSync('git branch --show-current').toString().trim()
-  // if (currentBranch !== 'timeline') {
-  //   op_version = `-${currentBranch}`
-  // }
-
-  console.log(NS, 'init releaseVersion')
-  const { workspaceVersion, projectsVersionData } = await releaseVersion({
-    // vx-bot/NOTE: specifier: `0.0.0-${op_version}-canary`,
-    specifier: options.version,
-    dryRun: options.dryRun,
-    verbose: options.verbose,
-    firstRelease: options.firstRelease
+  process.exitCode = await runRelease(options, {
+    version: releaseVersion,
+    reportVersion: version => {
+      if (process.env.GITHUB_OUTPUT)
+        appendFileSync(
+          process.env.GITHUB_OUTPUT,
+          `release_version=${version}\n`
+        )
+    },
+    reportPublish: ({ published, total }) => {
+      if (process.env.GITHUB_OUTPUT)
+        appendFileSync(
+          process.env.GITHUB_OUTPUT,
+          `release_published_count=${published ?? ''}\nrelease_publishable_count=${total}\n`
+        )
+    },
+    generateMetadata: generateReleaseMetadata,
+    changelog: releaseChangelog,
+    publish: async options => {
+      // vx-bot/NOTE: Publish from a separate group so fixed workspace versioning can include private projects.
+      const client = new ReleaseClient({ projects: options.projects }, true)
+      return client.releasePublish(options)
+    },
+    getPublishProjects: async () => {
+      const graph = await createProjectGraphAsync()
+      return Object.keys(graph.nodes).filter(
+        name => graph.nodes[name]?.data.targets?.['nx-release-publish']
+      )
+    }
   })
-  // vx-bot/NOTE: console.log(NS, '[data] projectsVersionData: ', JSON.stringify(projectsVersionData))
-
-  console.log(NS, 'init releaseChangelog')
-  await releaseChangelog({
-    versionData: projectsVersionData,
-    version: workspaceVersion,
-    dryRun: options.dryRun,
-    verbose: options.verbose,
-    firstRelease: options.firstRelease
-  })
-
-  // vx-bot/NOTE: The returned number value from releasePublish will be zero if all projects are published successfully, non-zero if not
-  console.log(NS, 'init releasePublish')
-  const publishResult = await releasePublish({
-    access: 'public',
-    dryRun: options.dryRun,
-    verbose: options.verbose,
-    firstRelease: options.firstRelease
-  })
-  // vx-bot/NOTE: console.log(NS, '[data] publishResult: ', JSON.stringify(publishResult))
-
-  process.exit(
-    Object.values(publishResult).every(result => result.code === 0) ? 0 : 1
-  )
 }
 
-main()
+main().catch(error => {
+  console.error(error instanceof Error ? error.message : String(error))
+  process.exitCode = 1
+})

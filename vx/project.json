@@ -41,7 +41,7 @@
     },
     "@vx-ws/audit": {
       "command": "node vx/tools/audit/index.mjs",
-      "dependsOn": ["test:eslint"],
+      "dependsOn": ["test:eslint", "test:audit"],
       "cache": false
     },
     "@vx-ws/audit:fallow": {
@@ -157,6 +157,10 @@
     "test:unit-nc": {
       "command": "pnpm nx run-many -t test --exclude=@vx/fe-kit --skipNxCache --passWithNoTests --reporter=json --outputFile=test-output/vitest/unit-test-results.json --no-cache"
     },
+    "test:audit": {
+      "command": "node --test vx/tools/audit/*.test.mjs",
+      "cache": false
+    },
     "test:eslint": {
       "command": "c8 --all --include='vx/tools/eslint/*.mjs' --reporter=json --reporter=text --reports-dir=test-output/audit/eslint-coverage node --test vx/tools/eslint/tests/*.test.mjs",
       "cache": false
@@ -198,7 +202,7 @@
           "pnpm nx run @vx:@vx-ci/format-check",
           "pnpm nx run-many -t test --passWithNoTests --exclude=@vx/fe-kit",
           "pnpm nx run-many -t e2e",
-          "pnpm nx run-many -t build"
+          "pnpm nx run @vx:@vx-ci/build"
         ],
         "env": {
           "CI": "true",
@@ -209,24 +213,17 @@
       }
     },
     "@vx-ci/build": {
-      "command": "nx run-many -t build"
+      "command": "nx run-many -t build --parallel=4"
     },
     "@vx-ci/nx:release": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["nx run @vx:@vx-ci/build", "nx release -d"],
-        "parallel": false
-      }
+      "command": "nx release -d",
+      "cache": false
     },
     "@vx-ws/release": {
       "executor": "nx:run-commands",
+      "cache": false,
       "options": {
-        "commands": [
-          { "command": "nx run @vx:@vx-ci/build", "forwardAllArgs": false },
-          "tsx vx/tools/release/index.ts"
-        ],
-        "// commands": ["tsx vx/tools/release/index.ts -d --fr"],
-        "parallel": false
+        "command": "tsx vx/tools/release/index.ts"
       }
     },
     "local-registry": {
@@ -236,6 +233,10 @@
         "config": ".verdaccio/config.yml",
         "storage": "tmp/local-registry/storage"
       }
+    },
+    "test:release": {
+      "command": "tsx --test vx/tools/release/run-release.test.ts",
+      "cache": false
     }
   }
 }

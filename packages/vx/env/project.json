@@ -1,9 +1,0 @@
-{
-  "name": "@vx/env",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/vx/env/src",
-  "projectType": "library",
-  "tags": [],
-  "// targets": "to see all targets run: nx show project @vx/env --web",
-  "targets": {}
-}

@@ -41,7 +41,7 @@ This rule does not check class strings in JSX or Tailwind utilities.
 The root Vitest config supplies common defaults with a Node environment.
 App test presets are selected from the required `framework` in `vx.app.yaml`.
 Use an app-local `vitest.config.ts` only for additional overrides. Packages
-without app metadata can select `@vx/config/vitest/vite`, `/next`, or `/docs`
+without app metadata can select `@vezham/config/vitest/react`, `/next`, or `/docs`
 explicitly; otherwise tests use the Node environment.
 
 Shared jsdom presets run test files sequentially within each project. Nx owns
@@ -53,7 +53,7 @@ memory-history router, await `router.load()`, then render `RouterProvider`.
 Await `renderApp()` in each test so initial route loading finishes before
 assertions. Component tests stay synchronous unless they await async behavior.
 
-App E2E suites import `test` and `expect` from `@vx/config/playwright/test`.
+App E2E suites import `test` and `expect` from `@vezham/config/playwright/test`.
 Its automatic fixture checks console and runtime errors after each scenario,
 allowing only the resource error associated with an actual main-document 404.
 
@@ -70,6 +70,8 @@ allowing only the resource error associated with an actual main-document 404.
 - Keep configuration files minimal.
 - Prefer explicit configuration over implicit behaviour.
 - Use consistent naming across repositories.
+- Use `import.meta.dirname` for directory paths in ESM Vite and Vitest configs
+  on the Node 24 baseline. Reserve `__dirname` for CommonJS files.
 - Document non-obvious configuration with `NOTE` comments.
 
 ## Pull Requests

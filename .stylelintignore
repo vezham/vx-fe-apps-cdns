@@ -115,6 +115,9 @@ testem.log
 .eslintcache
 .stylelintcache
 
+# Audit tool output
+state/
+
 # Vite / Vitest
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
@@ -154,6 +157,7 @@ tsconfig.tsbuildinfo
 # Generated Source
 # ============================================================================
 
+CHANGELOG.md
 **/routeTree.gen.ts
 **/src/generated/**
 
