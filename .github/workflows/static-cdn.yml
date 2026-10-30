@@ -1,19 +1,21 @@
-# @vx/INFO: @vx/ci - trigger
-name: static-cdn | bnd
+# @vx/INFO: @vx/ci
+name: 🚀 Static CDN
 
-run-name: >
-  🚀 BnD • ${{
-      github.event_name == 'schedule' && '🕒 Scheduled' ||
-      github.event_name == 'workflow_dispatch' && '⚡ Trails' ||
-      github.event.head_commit.message ||
-      github.event.workflow_run && github.event.workflow_run.head_commit.message ||
-      github.ref_name
-  }} - by @${{ github.actor || 'vx/ci' }}
+run-name: >-
+  ${{
+    github.event_name == 'schedule' && '🚀 BnD • 🕒 Scheduled' ||
+    github.event_name == 'workflow_dispatch' && '🚀 BnD • ▶️ On demand' ||
+    ''
+  }}
 
 on:
   workflow_dispatch:
   push:
-    branches: [timeline, next, feat/*]
+    branches:
+      - timeline
+      - next**
+      - feat**
+      - fix**
     paths:
       - '.github/workflows/static-cdn.yml'
       - 'vx/handbooks/ci.md'

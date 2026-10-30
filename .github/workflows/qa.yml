@@ -8,15 +8,6 @@ run-name: >-
     ''
   }}
 
-run-name: >
-  🧪 QA • ${{
-      github.event_name == 'schedule' && '🕒 Scheduled' ||
-      github.event_name == 'workflow_dispatch' && '⚡ Trails' ||
-      github.event.head_commit.message ||
-      github.event.workflow_run && github.event.workflow_run.head_commit.message ||
-      github.ref_name
-  }}  - by @${{ github.actor || 'vx/ci' }}
-
 on:
   schedule:
     - cron: '30 22 * * 2,5' # every Wed, Sat at 04:00 AM IST
@@ -254,6 +245,8 @@ jobs:
           HEROUI_AUTH_TOKEN: ${{ secrets.HEROUI_AUTH_TOKEN }}
 
       - name: 🔵 · 🔍 Audit • Fallow & React Doctor
+        # id: audit
+        # continue-on-error: false
         shell: bash
         run: |
           pnpm nx run @vx:@vx-ws/audit
