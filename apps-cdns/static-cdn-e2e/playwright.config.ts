@@ -1,4 +1,4 @@
-import { defineConfig } from '@vx/config/playwright'
+import { defineConfig } from '@vezham/config/playwright'
 
 export default defineConfig(__filename, {
   webServer: {

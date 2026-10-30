@@ -4,7 +4,7 @@ core:
   id: vezham-static-cdn
   name: Vezham Static CDN
   shortName: Static CDN
-  version: 26.0.0-alpha.1
+  version: 26.0.2
   description: Single app to manage your Vezham Static CDN
   publisher:
     name: Vezham Technologies Private Limited

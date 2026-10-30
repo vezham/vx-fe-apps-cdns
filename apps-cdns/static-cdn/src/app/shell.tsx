@@ -1,6 +1,6 @@
 import { RouterProvider } from '@tanstack/react-router'
 
-import { createRouter } from '@vx/start/router/tanstack'
+import { createRouter } from '@vezham/start/router/tanstack'
 
 import { routeTree } from '@src/routeTree.gen'
 

@@ -1,4 +1,4 @@
-import { defineConfig } from '@vx/start/vite'
+import { defineConfig } from '@vezham/start/vite'
 
 import { Shell } from '@app/shell'
 import { vxI18n } from '@generated/vx'

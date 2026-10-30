@@ -1,8 +1,5 @@
 {
   "name": "static-cdn-e2e",
-  "version": "26.0.0-alpha.1",
-  "private": true,
-  "devDependencies": {
-    "@vx/config": "workspace:*"
-  }
+  "version": "26.0.2",
+  "private": true
 }

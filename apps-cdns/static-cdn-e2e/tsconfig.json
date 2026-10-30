@@ -24,10 +24,5 @@
     "eslint.config.js",
     "eslint.config.mjs",
     "eslint.config.cjs"
-  ],
-  "references": [
-    {
-      "path": "../../packages/vx/config"
-    }
   ]
 }

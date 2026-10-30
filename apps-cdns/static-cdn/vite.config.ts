@@ -1,14 +1,16 @@
+import { nxReadySignal } from '@nx/vite/plugins/nx-ready-signal.plugin'
 import tailwindcss from '@tailwindcss/vite'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import react from '@vitejs/plugin-react-swc'
 
-import { defineConfig } from '@vx/config/presets/cdn'
+import { defineConfig } from '@vezham/config/presets/cdn'
 
 export default defineConfig({
-  root: __dirname,
+  root: import.meta.dirname,
   plugins: [
     tanstackRouter({ target: 'react', autoCodeSplitting: true }),
+    tailwindcss(),
     react(),
-    tailwindcss()
+    nxReadySignal()
   ]
 })
