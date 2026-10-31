@@ -14,16 +14,16 @@ catalog:
   react-aria-components: 1.21.1
   yaml: 2.9.1
   # vx-bot/NOTE: vx-pkgs
-  '@vezham/env': 26.0.0
-  '@vezham/react': 26.0.0
-  '@vezham/start': 26.0.0
-  '@vezham/template': 26.0.0
-  '@vezham/utils': 26.0.0
-  '@vezham/devtools': 26.0.0
-  '@vezham/config': 26.0.0
+  '@vezham/env': 26.0.2
+  '@vezham/react': 26.0.2
+  '@vezham/start': 26.0.2
+  '@vezham/template': 26.0.2
+  '@vezham/utils': 26.0.2
+  '@vezham/devtools': 26.0.2
+  '@vezham/config': 26.0.2
   # vx-bot/NOTE: Reserve the hooks catalog version for future direct workspace consumers.
   # fallow-ignore-next-line unused-catalog-entry
-  '@vezham/hooks': 26.0.0
+  '@vezham/hooks': 26.0.2
 
 # vx-bot/NOTE: Resolve docs packages' upstream peer names to the workspace's Vezham forks.
 # vx-bot/TODO: Remove these overrides when the published @vx-oss docs packages use

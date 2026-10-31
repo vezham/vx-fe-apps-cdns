@@ -131,7 +131,6 @@
     "@vezham/react-v3",
     "@vezham/styles-v3",
     "@vezham/use-logger",
-    "@vitejs/plugin-react-swc",
     "axios",
     "embla-carousel",
     "embla-carousel-react",
