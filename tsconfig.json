@@ -13,6 +13,24 @@
     },
     {
       "path": "./apps-cdns/static-cdn"
+    },
+    {
+      "path": "./apps-cdns/illustrations-cdn-e2e"
+    },
+    {
+      "path": "./apps-cdns/illustrations-cdn"
+    },
+    {
+      "path": "./apps-cdns/icons-cdn-e2e"
+    },
+    {
+      "path": "./apps-cdns/logos-cdn-e2e"
+    },
+    {
+      "path": "./apps-cdns/icons-cdn"
+    },
+    {
+      "path": "./apps-cdns/logos-cdn"
     }
   ],
   "compilerOptions": {

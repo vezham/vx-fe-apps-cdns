@@ -9,7 +9,7 @@ core:
   publisher:
     name: Vezham Technologies Private Limited
     url: https://vezham.com
-  url: https://illustrations-cdn.vezham.app
+  url: https://illustrations.cdn.vezham.com
 branding:
   themeColor: '#000000'
   backgroundColor: '#ffffff'

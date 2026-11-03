@@ -9,7 +9,7 @@ core:
   publisher:
     name: Vezham Technologies Private Limited
     url: https://vezham.com
-  url: https://logos-cdn.vezham.app
+  url: https://logos.cdn.vezham.com
 branding:
   themeColor: '#000000'
   backgroundColor: '#ffffff'
