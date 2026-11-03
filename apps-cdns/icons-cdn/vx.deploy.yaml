@@ -1,0 +1,4 @@
+# yaml-language-server: $schema=../../vx/schemas/vx.deploy.json
+preset: cdn
+providers:
+  - firebase
