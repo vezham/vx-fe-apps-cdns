@@ -1,0 +1,9 @@
+{
+  "name": "illustrations-cdn-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps-cdns/illustrations-cdn-e2e/src",
+  "tags": ["category:cdn", "e2e"],
+  "implicitDependencies": ["illustrations-cdn"],
+  "targets": {}
+}
