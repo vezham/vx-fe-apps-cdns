@@ -37,6 +37,12 @@
     },
     {
       "path": "./apps-cdns/apps-cdn"
+    },
+    {
+      "path": "./apps-cdns/mail-cdn-e2e"
+    },
+    {
+      "path": "./apps-cdns/mail-cdn"
     }
   ],
   "compilerOptions": {
