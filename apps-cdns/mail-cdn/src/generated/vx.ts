@@ -7,7 +7,7 @@ export const vxMetadata = {
   ],
   "title": "Home | Vezham Mail CDN",
   "description": "single app to manage your Vezham Mail CDN",
-  "url": "https://mail-cdn.vezham.app",
+  "url": "https://mail.cdn.vezham.com",
   "manifest": "/manifest.webmanifest",
   "browserConfig": "/browserconfig.xml",
   "startUrl": "/",
@@ -192,7 +192,7 @@ export const vxMetadata = {
     "description": "single app to manage your Vezham Mail CDN",
     "image": "/og/image.png",
     "imageSource": "path",
-    "url": "https://mail-cdn.vezham.app"
+    "url": "https://mail.cdn.vezham.com"
   },
   "twitter": {
     "creator": "@vezham",
@@ -200,7 +200,7 @@ export const vxMetadata = {
     "title": "Vezham Mail CDN",
     "description": "single app to manage your Vezham Mail CDN",
     "image": "/og/image.png",
-    "url": "https://mail-cdn.vezham.app",
+    "url": "https://mail.cdn.vezham.com",
     "card": "summary_large_image"
   }
 } as const
@@ -215,7 +215,7 @@ export const vxCore = {
     "name": "Vezham Technologies Private Limited",
     "url": "https://vezham.com"
   },
-  "url": "https://mail-cdn.vezham.app"
+  "url": "https://mail.cdn.vezham.com"
 } as const
 
 

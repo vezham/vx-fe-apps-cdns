@@ -9,7 +9,7 @@ core:
   publisher:
     name: Vezham Technologies Private Limited
     url: https://vezham.com
-  url: https://mail-cdn.vezham.app
+  url: https://mail.cdn.vezham.com
 branding:
   themeColor: '#000000'
   backgroundColor: '#ffffff'

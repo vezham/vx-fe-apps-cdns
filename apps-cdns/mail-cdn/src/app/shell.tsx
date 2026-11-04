@@ -1,23 +1,23 @@
-import { RouterProvider } from '@tanstack/react-router';
+import { RouterProvider } from '@tanstack/react-router'
 
-import { createRouter } from '@vezham/start/router/tanstack';
+import { createRouter } from '@vezham/start/router/tanstack'
 
-import { routeTree } from '@src/routeTree.gen';
+import { routeTree } from '@src/routeTree.gen'
 
-import './global.css';
+import './global.css'
 
 // vx-bot/NOTE: Create a new router instance
 const router = createRouter({
-  routeTree,
-});
+  routeTree
+})
 
 // vx-bot/NOTE: Register the router instance for type safety
 declare module '@tanstack/react-router' {
   interface Register {
-    router: typeof router;
+    router: typeof router
   }
 }
 
-const Shell = () => <RouterProvider router={router} />;
+const Shell = () => <RouterProvider router={router} />
 
-export { Shell };
+export { Shell }

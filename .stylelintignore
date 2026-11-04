@@ -4,6 +4,7 @@
 # /.changelog
 
 .vezham
+apps-cdns/*/public/assets
 
 # --- END of @vx/fe-kit-config ---
 

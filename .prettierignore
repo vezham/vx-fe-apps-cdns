@@ -4,6 +4,7 @@
 # /.changelog
 
 .vezham
+apps-cdns/*/public/assets
 
 # MDX content
 # **/content/**/*.mdx

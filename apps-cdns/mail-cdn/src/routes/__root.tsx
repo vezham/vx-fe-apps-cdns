@@ -1,7 +1,7 @@
-import { createRootRoute } from '@tanstack/react-router';
+import { createRootRoute } from '@tanstack/react-router'
 
-import { RouterRoot } from '@vezham/start/router/tanstack';
+import { RouterRoot } from '@vezham/start/router/tanstack'
 
 export const Route = createRootRoute({
-  component: RouterRoot,
-});
+  component: RouterRoot
+})
