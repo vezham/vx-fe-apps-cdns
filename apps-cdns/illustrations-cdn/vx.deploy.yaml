@@ -2,3 +2,21 @@
 preset: cdn
 providers:
   - firebase
+firebase:
+  headers:
+    - source: /assets/**
+      headers:
+        - key: Access-Control-Allow-Origin
+          value: '*'
+        - key: Cache-Control
+          value: public,max-age=31536000,immutable
+    - source: /catalog.json
+      headers:
+        - key: Access-Control-Allow-Origin
+          value: '*'
+        - key: Cache-Control
+          value: public,max-age=300
+    - source: /catalog-manifest.json
+      headers:
+        - key: Cache-Control
+          value: public,max-age=300

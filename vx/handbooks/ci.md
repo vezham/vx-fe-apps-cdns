@@ -3,7 +3,7 @@
 ---
 
 - sync: ci
-- version: 2026-11-05-00:00:00
+- version: 2026-11-05-00:00:01
 - @vx/fe-kit: 26.0.2
 
 ## Node runtime
