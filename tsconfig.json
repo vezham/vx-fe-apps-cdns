@@ -31,6 +31,12 @@
     },
     {
       "path": "./apps-cdns/logos-cdn"
+    },
+    {
+      "path": "./apps-cdns/apps-cdn-e2e"
+    },
+    {
+      "path": "./apps-cdns/apps-cdn"
     }
   ],
   "compilerOptions": {
