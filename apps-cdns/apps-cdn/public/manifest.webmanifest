@@ -1,0 +1,78 @@
+{
+  "manifest_version": 1,
+  "version": "26.0.3",
+  "id": "vezham-apps-cdn",
+  "name": "Vezham Apps CDN",
+  "short_name": "Apps CDN",
+  "description": "single app to manage your Vezham Apps CDN",
+  "scope": ".",
+  "start_url": "/?utm_source=homescreen&utm_medium=shortcut&pwa=true",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "categories": ["productivity", "personalization", "utilities"],
+  "icons": [
+    {
+      "src": "https://static.cdn.vezham.com/apps-cdns/apps-cdn/icons/icon-48x48.png?vx=26.0.3",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "https://static.cdn.vezham.com/apps-cdns/apps-cdn/icons/icon-72x72.png?vx=26.0.3",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "https://static.cdn.vezham.com/apps-cdns/apps-cdn/icons/icon-96x96.png?vx=26.0.3",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "https://static.cdn.vezham.com/apps-cdns/apps-cdn/icons/icon-128x128.png?vx=26.0.3",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "https://static.cdn.vezham.com/apps-cdns/apps-cdn/icons/icon-192x192.png?vx=26.0.3",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://static.cdn.vezham.com/apps-cdns/apps-cdn/icons/icon-384x384.png?vx=26.0.3",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "https://static.cdn.vezham.com/apps-cdns/apps-cdn/icons/icon-512x512.png?vx=26.0.3",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "https://static.cdn.vezham.com/apps-cdns/apps-cdn/icons/icon-1024x1024.png?vx=26.0.3",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://static.cdn.vezham.com/apps-cdns/apps-cdn/screenshots/home-512x512.png?vx=26.0.3",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Home",
+      "short_name": "Home",
+      "url": "/?utm_source=jumplist&utm_medium=shortcut&pwa=true",
+      "icons": [
+        {
+          "src": "https://static.cdn.vezham.com/apps-cdns/apps-cdn/shortcuts/icon-home-192x192.png?vx=26.0.3",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
