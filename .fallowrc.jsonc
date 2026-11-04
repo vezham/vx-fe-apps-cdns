@@ -25,6 +25,7 @@
     "packages/vx/react/**"
   ],
   "entry": [
+    "vx/tools/cdn/*.mjs",
     // vx-bot/NOTE: public/sw.js loads this published worker by URL with importScripts.
     "apps-cdns/static-cdn/public/workers/sw.js",
     // vx-bot/NOTE: Generated apps import these shared stylesheet roots directly.

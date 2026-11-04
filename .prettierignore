@@ -207,3 +207,7 @@ firebase-debug.*.log*
 # Claude
 .claude/worktrees
 .claude/settings.local.json
+
+apps-cdns/illustrations-cdn/public/catalog.json
+
+apps-cdns/logos-cdn/public/catalog.json

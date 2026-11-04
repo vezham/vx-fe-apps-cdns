@@ -5,7 +5,12 @@
   "sourceRoot": "apps-cdns/logos-cdn/src",
   "targets": {
     "build": {
-      "dependsOn": ["metadata:generate", "deploy:generate", "^build"]
+      "dependsOn": [
+        "catalog:validate",
+        "metadata:generate",
+        "deploy:generate",
+        "^build"
+      ]
     },
     "dev": {
       "dependsOn": ["metadata:watch"]
@@ -14,7 +19,21 @@
     "deploy:generate": {},
     "metadata:generate": {},
     "metadata:watch": {},
-    "routes:tanstack": {}
+    "routes:tanstack": {},
+    "catalog:validate": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": [
+        "{projectRoot}/public/catalog.json",
+        "{projectRoot}/public/catalog-manifest.json",
+        "{projectRoot}/public/assets/**",
+        "{workspaceRoot}/vx/tools/cdn/validate-catalog.mjs"
+      ],
+      "options": {
+        "cwd": "apps-cdns/logos-cdn",
+        "command": "node ../../vx/tools/cdn/validate-catalog.mjs public"
+      }
+    }
   },
   "tags": ["category:cdn"]
 }
