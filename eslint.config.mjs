@@ -32,7 +32,9 @@ const ignores = [
   '**/routeTree.gen.ts',
   '**/src/generated/**',
   '**/vite.config.*.timestamp*',
-  '**/vitest.config.*.timestamp*'
+  '**/vitest.config.*.timestamp*',
+  'apps-cdns/*/public/assets',
+  'apps-cdns/*/public/catalog.json'
 ]
 
 const vxLintIgnores = [

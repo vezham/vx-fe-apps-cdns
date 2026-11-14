@@ -4,6 +4,8 @@
 # /.changelog
 
 .vezham
+apps-cdns/*/public/assets
+apps-cdns/*/public/catalog.json
 
 # MDX content
 # **/content/**/*.mdx
