@@ -1,18 +1,21 @@
 self.__INITIAL_STATE__ = {}
 
 const pretext = 'vx-cache-'
-const version = '26.0.0-alpha.1'
+const version = '26.27.0'
 const CACHE_NAME = pretext + version
 const HOME_URL = '/index.html'
 const OFFLINE_URL = '/offline.html'
 const VASSEST_URL = 'https://static.cdn.vezham.com/vassets/'
 const NO_INTERNET = 'no-internet.svg'
+const ILLUSTRATIONS_URL = 'https://static.cdn.vezham.com/assets/illustrations/'
 const assets = [
   '/',
-  '/manifest.json',
+  '/manifest.webmanifest',
   HOME_URL,
   OFFLINE_URL,
-  VASSEST_URL + NO_INTERNET
+  VASSEST_URL + NO_INTERNET,
+  ILLUSTRATIONS_URL + 'no-internet-light.svg?vx=' + version,
+  ILLUSTRATIONS_URL + 'no-internet-dark.svg?vx=' + version
 ]
 
 // wjdlz/NOTE: cache size limit function
@@ -32,7 +35,7 @@ self.addEventListener('install', event => {
     (async () => {
       self.skipWaiting()
 
-      caches.open(CACHE_NAME).then(cache => {
+      await caches.open(CACHE_NAME).then(cache => {
         // wjdlz/REF: console.log("service_worker | cache assets");
         return cache.addAll(assets)
       })
@@ -71,7 +74,10 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     (async () => {
       try {
-        if (event.request.url.startsWith(VASSEST_URL)) {
+        if (
+          event.request.url.startsWith(VASSEST_URL) ||
+          event.request.url.startsWith(ILLUSTRATIONS_URL)
+        ) {
           const cachedResponse = await caches.match(event.request).then(res => {
             return res
           })
