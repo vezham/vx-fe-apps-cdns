@@ -78,8 +78,9 @@ self.addEventListener('fetch', event => {
           event.request.url.startsWith(VASSEST_URL) ||
           event.request.url.startsWith(ILLUSTRATIONS_URL)
         ) {
-          const cachedResponse = await caches.match(event.request).then(res => {
-            return res
+          // vx-bot/NOTE: Apps version shared illustrations independently of the CDN.
+          const cachedResponse = await caches.match(event.request, {
+            ignoreSearch: event.request.url.startsWith(ILLUSTRATIONS_URL)
           })
           if (cachedResponse) {
             return cachedResponse
