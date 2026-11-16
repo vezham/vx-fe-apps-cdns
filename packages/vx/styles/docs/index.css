@@ -8,6 +8,14 @@
 @import '@vezham/docs-story/css/preset.css';
 @import '@vezham/docs-openapi/css/preset.css';
 
+@layer components {
+  /* vx-bot/NOTE: Center capped page content while allowing page utilities to override it. */
+  :where(#nd-page) > * {
+    width: 100%;
+    margin-inline: auto;
+  }
+}
+
 @variant xl {
   #nd-notebook-layout :is(#nd-page, #nd-toc) {
     padding-top: --spacing(8);

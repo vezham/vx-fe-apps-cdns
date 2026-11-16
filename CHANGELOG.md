@@ -421,6 +421,31 @@
 - suresh-vtpl
 - v0xvigneshwaran
 - vx-vigneshwaran @vx-vigneshwaran
+# 27.0.0 (2026-11-15)
+
+### 🏡 Chore
+
+- **repo:** update Nx to 24.0.5 ([9cfc761d](https://github.com/vezham-labs/vx-fe-kit/commit/9cfc761d))
+- **workspace:** update v27 dependencies ([b49a0a14](https://github.com/vezham-labs/vx-fe-kit/commit/b49a0a14))
+
+### ❤️ Thank You
+
+- vx-vigneshwaran
+
+## 27.0.0-alpha.2 (2026-11-14)
+
+### 🚀 Features
+
+- **vx:** add page component styles ([87c32d04](https://github.com/vezham-labs/vx-fe-kit/commit/87c32d04))
+
+### 🏡 Chore
+
+- **vx:** update Fallow dependency exceptions ([3828a3b5](https://github.com/vezham-labs/vx-fe-kit/commit/3828a3b5))
+- **workspace:** ignore future shared styles ([ba151202](https://github.com/vezham-labs/vx-fe-kit/commit/ba151202))
+
+### ❤️ Thank You
+
+- vx-vigneshwaran
 
 ## 27.0.0-alpha.1 (2026-11-12)
 

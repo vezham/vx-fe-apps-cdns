@@ -74,6 +74,9 @@ runtime dependency.
 - Next app configs import `configEnv` from `@vezham/env/next/config` so Nx can
   inspect configuration before runtime environment validation. Application code
   uses `@vezham/env/next` for validated settings.
+- Initialize viewport-dependent `useMediaQuery` hooks with
+  `initializeWithValue: false` in SSR applications so prerendered markup matches
+  the first browser render.
 - Use `V_RELEASE_CHANNEL` (`canary`, `beta`, or `stable`) as the only release-channel
   input in app templates. It defaults to `stable`; compare the channel directly for conditional behavior.
 
