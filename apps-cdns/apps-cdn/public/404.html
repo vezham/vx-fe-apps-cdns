@@ -87,7 +87,12 @@
         width: 100%;
       }
 
+      .vx-not-found__illustration {
+        max-width: 100%;
+      }
+
       .vx-not-found__image {
+        display: block;
         height: auto;
         margin-bottom: 0.75rem;
         max-height: 16rem;
@@ -104,12 +109,6 @@
       .typography {
         color: var(--foreground);
         margin: 0;
-      }
-
-      .typography--h1 {
-        font-size: 2.25rem;
-        font-weight: 600;
-        line-height: 2.5rem;
       }
 
       .typography--h2 {
@@ -197,12 +196,19 @@
     <main class="vx-not-found">
       <div class="empty-state">
         <div class="vx-not-found__content">
-          <img
-            class="vx-not-found__image"
-            src="https://static.cdn.vezham.com/vassets/no-internet.svg?vx=26.27.0"
-            alt="Page not found" />
-          <h1 class="typography typography--color-muted typography--h1">404</h1>
-          <h2 class="typography typography--h2">Page not found</h2>
+          <picture class="vx-not-found__illustration">
+            <source
+              data-vx-not-found-dark-image
+              media="(prefers-color-scheme: dark)"
+              srcset="https://static.cdn.vezham.com/assets/illustrations/404-dark.svg?vx=27.0.1" />
+            <img
+              class="vx-not-found__image"
+              src="https://static.cdn.vezham.com/assets/illustrations/404-light.svg?vx=27.0.1"
+              width="654"
+              height="300"
+              alt="Page not found" />
+          </picture>
+          <h1 class="typography typography--h2">Page not found</h1>
           <p class="typography typography--color-muted typography--body">
             Vezham Apps CDN could not find the page you requested<span
               class="vx-not-found__path"
@@ -214,6 +220,22 @@
       </div>
     </main>
     <script>
+      const root = document.documentElement
+      const darkImage = document.querySelector('[data-vx-not-found-dark-image]')
+      const updateIllustration = () => {
+        darkImage.media =
+          getComputedStyle(root).colorScheme === 'dark' ? 'all' : 'not all'
+      }
+
+      updateIllustration()
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', updateIllustration)
+      new MutationObserver(updateIllustration).observe(root, {
+        attributes: true,
+        attributeFilter: ['class', 'data-theme']
+      })
+
       const pathElement = document.querySelector('[data-vx-not-found-path]')
 
       if (pathElement) {

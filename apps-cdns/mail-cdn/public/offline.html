@@ -65,11 +65,6 @@
         background: var(--background);
       }
 
-      .dark .vx-offline__image,
-      [data-theme='dark'] .vx-offline__image {
-        filter: invert(1) hue-rotate(180deg);
-      }
-
       .vx-offline {
         align-items: center;
         display: flex;
@@ -93,7 +88,12 @@
         width: 100%;
       }
 
+      .vx-offline__illustration {
+        max-width: 100%;
+      }
+
       .vx-offline__image {
+        display: block;
         height: auto;
         margin-bottom: 0.75rem;
         max-height: 16rem;
@@ -175,10 +175,6 @@
         :root:not(.light):not(.dark):not([data-theme]) body {
           background: var(--background);
         }
-
-        :root:not(.light):not(.dark):not([data-theme]) .vx-offline__image {
-          filter: invert(1) hue-rotate(180deg);
-        }
       }
 
       @media only screen and (orientation: landscape) {
@@ -193,10 +189,18 @@
     <main class="vx-offline">
       <div class="empty-state">
         <div class="vx-offline__content">
-          <img
-            class="vx-offline__image"
-            src="https://static.cdn.vezham.com/vassets/no-internet.svg?vx=26.27.0"
-            alt="Offline" />
+          <picture class="vx-offline__illustration">
+            <source
+              data-vx-offline-dark-image
+              media="(prefers-color-scheme: dark)"
+              srcset="https://static.cdn.vezham.com/assets/illustrations/no-internet-dark.svg?vx=27.0.1" />
+            <img
+              class="vx-offline__image"
+              src="https://static.cdn.vezham.com/assets/illustrations/no-internet-light.svg?vx=27.0.1"
+              width="250"
+              height="250"
+              alt="Offline" />
+          </picture>
           <h1 class="typography typography--h2">Oops! You're offline</h1>
           <p class="typography typography--color-muted typography--body">
             Please check your connection and try again.
@@ -205,5 +209,22 @@
         </div>
       </div>
     </main>
+    <script>
+      const root = document.documentElement
+      const darkImage = document.querySelector('[data-vx-offline-dark-image]')
+      const updateIllustration = () => {
+        darkImage.media =
+          getComputedStyle(root).colorScheme === 'dark' ? 'all' : 'not all'
+      }
+
+      updateIllustration()
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', updateIllustration)
+      new MutationObserver(updateIllustration).observe(root, {
+        attributes: true,
+        attributeFilter: ['class', 'data-theme']
+      })
+    </script>
   </body>
 </html>

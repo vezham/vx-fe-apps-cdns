@@ -1,3 +1,32 @@
+## 27.0.1 (2026-11-16)
+
+### 🚀 Features
+
+- **apps-cdn,mail-cdn:** add health endpoints ([50e237b](https://github.com/vezham/vx-fe-apps-cdns/commit/50e237b))
+- **static-cdn:** add error illustrations ([851557c](https://github.com/vezham/vx-fe-apps-cdns/commit/851557c))
+
+### 🩹 Fixes
+
+- **static-cdn:** correct illustration themes ([cd6fbb8](https://github.com/vezham/vx-fe-apps-cdns/commit/cd6fbb8))
+- **static-cdn:** theme error illustrations ([052ae69](https://github.com/vezham/vx-fe-apps-cdns/commit/052ae69))
+- **static-cdn:** ignore query for illustrations ([8750513](https://github.com/vezham/vx-fe-apps-cdns/commit/8750513))
+
+### 🏡 Chore
+
+- **release:** publish 27.0.0-alpha.2 ([c7000cb](https://github.com/vezham/vx-fe-apps-cdns/commit/c7000cb))
+- **release:** publish 27.0.0 ([4765e39](https://github.com/vezham/vx-fe-apps-cdns/commit/4765e39))
+- **repo:** update Nx to 24.0.5 ([9cfc761](https://github.com/vezham/vx-fe-apps-cdns/commit/9cfc761))
+- **workspace:** update v27 dependencies ([b49a0a1](https://github.com/vezham/vx-fe-apps-cdns/commit/b49a0a1))
+
+### 🎨 Styles
+
+- **static-cdn:** format 404 image source ([6ec6e5a](https://github.com/vezham/vx-fe-apps-cdns/commit/6ec6e5a))
+
+### ❤️ Thank You
+
+- v0xvigneshwaran
+- vx-vigneshwaran
+
 ## 26.27.0 (2026-11-14)
 
 ### 🚀 Features

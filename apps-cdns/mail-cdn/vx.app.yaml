@@ -4,7 +4,7 @@ core:
   id: vezham-mail-cdn
   name: Vezham Mail CDN
   shortName: Mail CDN
-  version: 26.27.0
+  version: 27.0.1
   description: Single app to manage your Vezham Mail CDN
   publisher:
     name: Vezham Technologies Private Limited
